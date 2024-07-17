@@ -40,3 +40,15 @@ Install the Package Globally:
 ```sh
 npm install -g @nestjs/cli
 ```
+
+## Guard no delegacion
+* Esto se usa cuando se quiere proteger la ruta con un guard y no se quiere delegar al frame work
+  
+  Ejemplo de un guard para roles de usuario:
+```sh
+@UseGuards(JwtGuardGuard,new RolesGuardGuard('admin'))
+```
+* Se debe añadir un constructor en el Guard
+  ```sh
+   constructor(private rol:string) {}
+  ```

@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, UseInterceptors, Logger } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, UseInterceptors, Logger, UploadedFile } from '@nestjs/common';
 import { VideosService } from './videos.service';
 import { CreateVideoDto } from './dto/create-video.dto';
 import { UpdateVideoDto } from './dto/update-video.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { LoggerInterceptor } from 'src/utils/logger/logger.interceptor';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { storage } from 'src/utils/mediaHandle';
 
 @ApiTags('videos')
 @UseInterceptors(LoggerInterceptor)
@@ -16,6 +18,12 @@ export class VideosController {
   create(@Body() createVideoDto: CreateVideoDto) {
     console.log(createVideoDto);
     return this.videosService.create(createVideoDto);
+  }
+
+  @Post('upload') //TODO post http://localhost:3000/v1/videos/upload
+  @UseInterceptors(FileInterceptor('avatar',{storage})) //TODO FileInterceptor
+  handleUpload(@UploadedFile() file: Express.Multer.File) {
+    console.log(file)
   }
 
   @Get() //TODO get http://localhost:3000/videos

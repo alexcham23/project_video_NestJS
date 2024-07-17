@@ -25,3 +25,26 @@ npm install --save @nestjs/serve-static
 ```sh
 npm i url-slug
 ```
+## Package multer
+```sh
+npm i -D @types/multer
+```
+## Package Mongo
+```sh
+npm i @nestjs/mongoose mongoose
+```
+
+## Incryptar usuarios register con BcryptJS
+```sh
+npm i bcryptjs
+```
+## Encryptar los datos Sencibles que enviamos JWT(json web token)
+
+```sh
+npm install --save @nestjs/jwt
+```
+
+## package Passport
+```sh
+npm i @nestjs/passport passport -s
+```
