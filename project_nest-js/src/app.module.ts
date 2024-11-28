@@ -10,6 +10,10 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { UserModule } from './user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { EventMailModule } from './event-mail/event-mail.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { MailModule } from './mail/mail.module';
+
 
 @Module({
   imports: [
@@ -17,11 +21,19 @@ import { MongooseModule } from '@nestjs/mongoose';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
-    MongooseModule.forRoot(process.env.DB_URI),
+    EventEmitterModule.forRoot(),
+    MongooseModule.forRoot(
+      process.env.DB_URI,
+      {
+        connectionFactory: (connection)=>{
+          connection.plugin(require('mongoose-delete'),{overrideMethods: 'all'});
+          return connection;
+       }
+    }),
     CoursesModule, 
     AuthModule, 
     VideosModule, 
-    AwardsModule, UserModule
+    AwardsModule, UserModule, EventMailModule, MailModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -8,7 +8,6 @@ import { SlugPipe } from './pipes/slug.pipe';
 import { JwtGuardGuard } from 'src/guards/jwt-guard/jwt-guard.guard';
 import { Request } from 'express';
 import { RolesGuardGuard } from 'src/guards/roles-guard/roles-guard.guard';
-import { set } from 'mongoose';
 import { Rol } from 'src/decorators/rol/rol.decorator';
 
 
@@ -25,35 +24,39 @@ export class CoursesController {
     return this.coursesService.create(createCourseDto);
   }
 
-  @Get() //TODO get http://localhost:3000/courses
-  findAll() {
+  @Get('') // Todo http://localhost:3000/v1/courses
+  @HttpCode(200)
+  @Rol(['manager','admin','user'])
+  getListCursos(){
     return this.coursesService.findAll();
   }
 
-
-
-  @Get(':title') //TODO get http://localhost:3000/courses/:title
-  @Rol(['manager','admin'])
-  getDetail(@Param('title',new SlugPipe()) title: string) {
-    console.log('__title__',title);
-    return this.coursesService.findOne(1);
-  }
+  //@Get(':title') //TODO get http://localhost:3000/courses/:title
+  //@Rol(['manager','admin'])
+  //getDetail(@Param('title',new SlugPipe()) title: string) {
+  //  console.log('__title__',title);
+  //  return this.coursesService.findOne(1);
+  //}
 
   @Get(':id') //TODO get http://localhost:3000/courses/:id
-  
-  getDatail(@Param('id',new ParseIntPipe({
-    errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE,
-  })) id: number) {
-    return this.coursesService.findOne(+id);
+  @HttpCode(200)
+  @Rol(['admin','manager','user'])
+  getDatail(@Param('id') id: string) {
+    console.log('__id__',id);
+    return this.coursesService.findOne(id);
   }
 
   @Patch(':id') //TODO patch http://localhost:3000/courses/:id
-  update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
-    return this.coursesService.update(+id, updateCourseDto);
+  @HttpCode(200)
+  @Rol(['admin'])
+  updateDetail(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
+    return this.coursesService.update(id, updateCourseDto);
   }
 
   @Delete(':id') //TODO delete http://localhost:3000/courses/:id
-  remove(@Param('id') id: string) {
-    return this.coursesService.remove(+id);
+  @HttpCode(200)
+  @Rol(['admin','manager','user'])
+  deleteCourse(@Param('id') id: string) {
+    return this.coursesService.remove(id)
   }
 }

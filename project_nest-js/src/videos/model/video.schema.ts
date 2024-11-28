@@ -1,23 +1,26 @@
 import { Prop,Schema,SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { Document } from "mongoose";
-
+import { v4 as uuidv4 } from 'uuid';
 export type  VideoDocument = Video & Document;
 
-@Schema()
+@Schema({timestamps:true})
 export class Video {
+    @Prop({unique:true,default:uuidv4})
+    id: string;
+
     @Prop({required: true})
     title: string;
 
-    @Prop()
-    idCourse: mongoose.Types.ObjectId;
+    @Prop({required:true})
+    idCourse: string;
 
     @Prop()
     description: string;
 
-    @Prop()
+    @Prop({default:null})
     source: string;
 
-    @Prop()
+    @Prop({default:0})
     score: number;
 }
 
