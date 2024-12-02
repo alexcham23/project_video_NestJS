@@ -79,3 +79,10 @@ tambien debemos de instalar para nodemailer el handlebars
 npm i --save handlebars
 ```
 no obstante debemos crear una cuenta para test en  [Mailtrap](https://mailtrap.io/)
+
+## package moongoose-paginate-v2   es 
+
+```sh
+npm i mongoose-paginate-v2
+```
+

@@ -8,6 +8,7 @@ import { Model, Types } from 'mongoose';
 
 interface ModelExt<T> extends Model<T>{
   delete:Function;
+  paginate: (query:any , Pagination:any)=>void;
   findAllCourses:Function;
 }
 
@@ -22,10 +23,13 @@ export class CoursesService {
     return this.courseModel.create(createCourseDto);
   }
 
-  async findAll() {
+  async findAll(pagination: any) {
     //const listCourses = await this.courseModel.find({});
     //return listCourses;
-    return this.courseModel.findAllCourses();
+    //otra manera 
+    //return this.courseModel.findAllCourses();
+    return this.courseModel.paginate({},pagination);
+
   }
 
   async findOne(id: string) {

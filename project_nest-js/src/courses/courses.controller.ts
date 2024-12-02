@@ -9,6 +9,7 @@ import { JwtGuardGuard } from 'src/guards/jwt-guard/jwt-guard.guard';
 import { Request } from 'express';
 import { RolesGuardGuard } from 'src/guards/roles-guard/roles-guard.guard';
 import { Rol } from 'src/decorators/rol/rol.decorator';
+import { PaginateV2 } from '../decorators/paginate-v2/paginate-v2.decorator';
 
 
 @ApiTags('courses')
@@ -27,8 +28,8 @@ export class CoursesController {
   @Get('') // Todo http://localhost:3000/v1/courses
   @HttpCode(200)
   @Rol(['manager','admin','user'])
-  getListCursos(){
-    return this.coursesService.findAll();
+  getListCursos(@PaginateV2() Pagination:any){
+    return this.coursesService.findAll(Pagination);
   }
 
   //@Get(':title') //TODO get http://localhost:3000/courses/:title
