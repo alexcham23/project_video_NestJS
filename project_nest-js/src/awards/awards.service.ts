@@ -5,7 +5,7 @@ import { UpdateAwardDto } from './dto/update-award.dto';
 @Injectable()
 export class AwardsService {
   create(createAwardDto: CreateAwardDto) {
-    return 'This action adds a new award';
+    return `This action adds a new award to the list ${createAwardDto}`;
   }
 
   findAll() {
@@ -17,7 +17,7 @@ export class AwardsService {
   }
 
   update(id: number, updateAwardDto: UpdateAwardDto) {
-    return `This action updates a #${id} award`;
+    return `This action updates a #${id} award with ${updateAwardDto}`;
   }
 
   remove(id: number) {

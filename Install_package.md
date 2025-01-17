@@ -86,3 +86,9 @@ no obstante debemos crear una cuenta para test en  [Mailtrap](https://mailtrap.i
 npm i mongoose-paginate-v2
 ```
 
+para el uso de la cache cuando grandes consultas a la base de datos
+
+```sh
+npm install cache-manager
+npm install -D @types/cache-manager
+```

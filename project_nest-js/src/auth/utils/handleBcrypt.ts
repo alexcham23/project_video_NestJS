@@ -3,9 +3,9 @@ import * as bcrypt from 'bcryptjs';
 const saltOrRounds = 10;
 
 /**
- * 
- * @param passwordPlaintText 
- * @returns 
+ *
+ * @param passwordPlaintText
+ * @returns
  */
 
 async function generateHash(passwordPlaintText: string): Promise<string> {
@@ -13,12 +13,15 @@ async function generateHash(passwordPlaintText: string): Promise<string> {
 }
 
 /**
- * 
- * @param passwordPlaintText 
- * @param hash 
- * @returns 
+ *
+ * @param passwordPlaintText
+ * @param hash
+ * @returns
  */
-async function compareHash(passwordPlaintText: string, hash: string): Promise<boolean> {
+async function compareHash(
+  passwordPlaintText: string,
+  hash: string,
+): Promise<boolean> {
   return bcrypt.compare(passwordPlaintText, hash);
 }
 

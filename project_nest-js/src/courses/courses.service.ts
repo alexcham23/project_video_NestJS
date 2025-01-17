@@ -6,17 +6,18 @@ import { Course, CourseDocument } from './model/course.schema';
 import { User, UserDocument } from '../user/model/user.schema';
 import { Model, Types } from 'mongoose';
 
-interface ModelExt<T> extends Model<T>{
-  delete:Function;
-  paginate: (query:any , Pagination:any)=>void;
-  findAllCourses:Function;
+interface ModelExt<T> extends Model<T> {
+  delete: (data: { _id: Types.ObjectId }) => void;
+  paginate: (query: any, Pagination: any) => void;
+  //findAllCourses: Function;
 }
 
 @Injectable()
 export class CoursesService {
   constructor(
-    @InjectModel(Course.name) private readonly courseModel:ModelExt<CourseDocument>,
-    @InjectModel(User.name) private readonly userModel:ModelExt<UserDocument>,
+    @InjectModel(Course.name)
+    private readonly courseModel: ModelExt<CourseDocument>,
+    @InjectModel(User.name) private readonly userModel: ModelExt<UserDocument>,
   ) {}
 
   create(createCourseDto: CreateCourseDto) {
@@ -26,10 +27,9 @@ export class CoursesService {
   async findAll(pagination: any) {
     //const listCourses = await this.courseModel.find({});
     //return listCourses;
-    //otra manera 
+    //otra manera
     //return this.courseModel.findAllCourses();
-    return this.courseModel.paginate({},pagination);
-
+    return this.courseModel.paginate({}, pagination);
   }
 
   async findOne(id: string) {
@@ -37,9 +37,9 @@ export class CoursesService {
   }
 
   async update(id: string, body: UpdateCourseDto) {
-    return this.courseModel.findOneAndUpdate({id}, body,{
-      upsert:true, //Si no existe, lo crea
-      new:true, //Devuelve el objeto actualizado
+    return this.courseModel.findOneAndUpdate({ id }, body, {
+      upsert: true, //Si no existe, lo crea
+      new: true, //Devuelve el objeto actualizado
     });
   }
 

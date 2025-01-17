@@ -4,7 +4,6 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { json } from 'express';
 
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
   app.enableVersioning({
@@ -26,7 +25,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe()); //TODO ValidationPipe
   app.use(json({ limit: '60mb' }));
 
-  await app.listen(3000);
+  await app.listen(5000);
 }
 
 bootstrap();

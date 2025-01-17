@@ -1,12 +1,12 @@
-import { 
-  Controller, 
-  Get, 
-  Post, 
-  Body, 
-  Patch, 
-  Param, 
-  Delete, 
-  UseInterceptors, 
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseInterceptors,
   UploadedFile,
   UseGuards,
   //UsePipes,
@@ -15,7 +15,7 @@ import {
 import { VideosService } from './videos.service';
 import { CreateVideoDto } from './dto/create-video.dto';
 import { UpdateVideoDto } from './dto/update-video.dto';
-import { ApiTags,ApiBearerAuth, ApiConsumes, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiConsumes, ApiBody } from '@nestjs/swagger';
 import { LoggerInterceptor } from 'src/utils/logger/logger.interceptor';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { storage } from 'src/utils/mediaHandle';
@@ -24,7 +24,7 @@ import { JwtGuardGuard } from '../guards/jwt-guard/jwt-guard.guard';
 import { Rol } from '../decorators/rol/rol.decorator';
 @ApiTags('videos')
 @ApiBearerAuth()
-@UseGuards(JwtGuardGuard,RolesGuardGuard)
+@UseGuards(JwtGuardGuard, RolesGuardGuard)
 @UseInterceptors(LoggerInterceptor)
 @Controller('videos') //TODO http://localhost:3000/videos
 //@UsePipes(new ValidationPipe()) //TODO ValidationPipe
@@ -41,30 +41,30 @@ export class VideosController {
   @Post('upload/:id') //TODO post http://localhost:3000/v1/videos/upload/:id
   @ApiConsumes('multipart/form-data')
   @ApiBody({
-    schema:{
-      type:'object',
-      properties:{
-        file:{
-          type:'string',
-          format:'binary'
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
         },
       },
     },
-  })  
+  })
   @Rol(['admin'])
-  @UseInterceptors(FileInterceptor('file',{storage})) //TODO FileInterceptor
-  upload(@Param('id') id:string, @UploadedFile() file: Express.Multer.File) {
-    return this.videosService.addVideo(id,file.filename);
+  @UseInterceptors(FileInterceptor('file', { storage })) //TODO FileInterceptor
+  upload(@Param('id') id: string, @UploadedFile() file: Express.Multer.File) {
+    return this.videosService.addVideo(id, file.filename);
   }
 
   @Get() //TODO get http://localhost:3000/videos
-  @Rol(['admin','manager','user'])
+  @Rol(['admin', 'manager', 'user'])
   findAll() {
     return this.videosService.findAll();
   }
 
   @Get(':id') //TODO get http://localhost:3000/videos/:id
-  @Rol(['admin','manager','user'])
+  @Rol(['admin', 'manager', 'user'])
   findOne(@Param('id') id: string) {
     return this.videosService.findOne(id);
   }

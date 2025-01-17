@@ -14,9 +14,9 @@ export class PaginationV2Middleware implements NestMiddleware {
   }
 }
 
-interface RequestPaginatev2 extends Request {
-  paginate?: {
-    limit: any;
-    page: any;
-  };
-}
+//interface RequestPaginatev2 extends Request {
+//  paginate?: {
+//    limit: any;
+//    page: any;
+//  };
+//}

@@ -13,7 +13,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { EventMailModule } from './event-mail/event-mail.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { MailModule } from './mail/mail.module';
-
+import { CacheModule } from '@nestjs/cache-manager';
+import * as mongooseDelete from 'mongoose-delete';
 
 @Module({
   imports: [
@@ -21,19 +22,27 @@ import { MailModule } from './mail/mail.module';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
-    EventEmitterModule.forRoot(),
-    MongooseModule.forRoot(
-      process.env.DB_URI,
-      {
-        connectionFactory: (connection)=>{
-          connection.plugin(require('mongoose-delete'),{overrideMethods: 'all'});
-          return connection;
-       }
+    CacheModule.register({
+      ttl: 3600,
+      max: 1000,
+      isGlobal: true,
     }),
-    CoursesModule, 
-    AuthModule, 
-    VideosModule, 
-    AwardsModule, UserModule, EventMailModule, MailModule
+    EventEmitterModule.forRoot(),
+    MongooseModule.forRoot(process.env.DB_URI, {
+      connectionFactory: (connection) => {
+        connection.plugin(mongooseDelete, {
+          overrideMethods: 'all',
+        });
+        return connection;
+      },
+    }),
+    CoursesModule,
+    AuthModule,
+    VideosModule,
+    AwardsModule,
+    UserModule,
+    EventMailModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

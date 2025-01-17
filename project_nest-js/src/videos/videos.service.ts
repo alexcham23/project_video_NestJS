@@ -5,30 +5,29 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Video, VideoDocument } from './model/video.schema';
 import { Model } from 'mongoose';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-interface ModelExt<T> extends Model<T>{
-  delete:(data: { id: string }) => void;
+interface ModelExt<T> extends Model<T> {
+  delete: (data: { id: string }) => void;
 }
 @Injectable()
 export class VideosService {
   constructor(
     @InjectModel(Video.name)
     private readonly videoModel: ModelExt<VideoDocument>,
-    private eventEmitter: EventEmitter2
-  ){}
-
+    private eventEmitter: EventEmitter2,
+  ) {}
 
   async create(createVideoDto: CreateVideoDto) {
     const video = await this.videoModel.create(createVideoDto);
     return video;
   }
 
-  addVideo(id:string, filename:string){
+  addVideo(id: string, filename: string) {
     return this.videoModel.findOneAndUpdate(
-      {id},
-      {source:filename},
+      { id },
+      { source: filename },
       {
-        new:true,
-        upsert:true
+        new: true,
+        upsert: true,
       },
     );
   }
@@ -38,18 +37,14 @@ export class VideosService {
   }
 
   findOne(id: string) {
-    return this.videoModel.findOne({id});
+    return this.videoModel.findOne({ id });
   }
 
   update(id: string, updateVideoDto: UpdateVideoDto) {
-    return this.videoModel.findOneAndUpdate(
-      {id},
-      updateVideoDto,
-      {
-        new:true,
-        upsert:true
-      }
-    );
+    return this.videoModel.findOneAndUpdate({ id }, updateVideoDto, {
+      new: true,
+      upsert: true,
+    });
   }
 
   remove(id: string) {

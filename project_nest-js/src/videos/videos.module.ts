@@ -5,13 +5,13 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Video, VideoSchema } from './model/video.schema';
 
 @Module({
-  imports:[
+  imports: [
     MongooseModule.forFeature([
       {
-        name:Video.name,
-        schema:VideoSchema
-      }
-    ])
+        name: Video.name,
+        schema: VideoSchema,
+      },
+    ]),
   ],
   controllers: [VideosController],
   providers: [VideosService],
