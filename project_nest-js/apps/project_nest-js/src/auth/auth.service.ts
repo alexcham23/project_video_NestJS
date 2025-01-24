@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, Inject } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from '../user/model/user.schema';
@@ -7,6 +7,7 @@ import { compareHash, generateHash } from './utils/handleBcrypt';
 import { LoginAuthDto } from './dto/login-auth.dto';
 import { JwtService } from '@nestjs/jwt';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class AuthService {
@@ -14,6 +15,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly eventEmitter: EventEmitter2,
     @InjectModel(User.name) private userModel: Model<UserDocument>,
+    @Inject('MAIL_SERVICE') private readonly clientMailService: ClientProxy,
   ) {}
   /**
    * Metodo para registrar un usuario
@@ -27,7 +29,12 @@ export class AuthService {
     /**
      * Emitir evento para enviar correo de bienvenida
      */
-    this.eventEmitter.emit('user.created', newUser);
+    //se comento el la linea debajo por motivo de enviar el evento a microservicio
+    //this.eventEmitter.emit('user.created', newUser);
+
+    // ESTE ES PARA EL USO MICROSERVICIO
+     this.clientMailService.emit('user.created', newUser);
+
     return newUser;
   }
   /**

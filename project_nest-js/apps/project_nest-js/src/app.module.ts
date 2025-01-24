@@ -14,6 +14,7 @@ import { EventMailModule } from './event-mail/event-mail.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { MailModule } from './mail/mail.module';
 import { CacheModule } from '@nestjs/cache-manager';
+import { SocketProvider } from './providers/socket-provider/socket-provider';
 import * as mongooseDelete from 'mongoose-delete';
 
 @Module({
@@ -45,6 +46,6 @@ import * as mongooseDelete from 'mongoose-delete';
     MailModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, SocketProvider],
 })
 export class AppModule {}

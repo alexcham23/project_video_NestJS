@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { UserDocument } from 'src/user/model/user.schema';
+import { UserDocument } from '../user/model/user.schema';
 import { MailerService } from '@nestjs-modules/mailer';
 import { OnEvent } from '@nestjs/event-emitter';
 

@@ -20,10 +20,10 @@ import { UpdateCourseDto } from './dto/update-course.dto';
 import { ApiTags } from '@nestjs/swagger';
 //import { SlugPipe } from './pipes/slug.pipe';
 //import { BrowserAgentGuard } from 'src/guards/browser-agent/browser-agent.guard';
-import { JwtGuardGuard } from 'src/guards/jwt-guard/jwt-guard.guard';
+import { JwtGuardGuard } from '../guards/jwt-guard/jwt-guard.guard';
 import { Request } from 'express';
-import { RolesGuardGuard } from 'src/guards/roles-guard/roles-guard.guard';
-import { Rol } from 'src/decorators/rol/rol.decorator';
+import { RolesGuardGuard } from '../guards/roles-guard/roles-guard.guard';
+import { Rol } from '../decorators/rol/rol.decorator';
 import { PaginateV2 } from '../decorators/paginate-v2/paginate-v2.decorator';
 
 @ApiTags('courses')

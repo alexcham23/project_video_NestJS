@@ -86,9 +86,26 @@ no obstante debemos crear una cuenta para test en  [Mailtrap](https://mailtrap.i
 npm i mongoose-paginate-v2
 ```
 
-para el uso de la cache cuando grandes consultas a la base de datos
+## Cache
+para el uso de la [cache](https://docs.nestjs.com/techniques/caching) cuando grandes consultas a la base de datos 
 
 ```sh
-npm install cache-manager
-npm install -D @types/cache-manager
+npm install @nestjs/cache-manager cache-manager
+```
+##  Websocket
+Para la comuniccion bidirecional en tiempo real
+
+```sh
+$ npm i --save @nestjs/websockets @nestjs/platform-socket.io
+```
+
+## Microservices
+
+```sh
+npm i --save @nestjs/microservices
+```
+
+## INSTALACION PNPM EN VES DE USAR NPM
+```sh
+npm install -g pnpm
 ```
