@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { MailAppService } from './mail-app.service';
 import { MessagePattern } from '@nestjs/microservices';
 
@@ -8,6 +8,6 @@ export class MailAppController {
 
   @MessagePattern('user.created')
   getMessageUser(data: any) {
-    console.log('___ esto es el microservicio___ ', data);
+    return 'hello';
   }
 }

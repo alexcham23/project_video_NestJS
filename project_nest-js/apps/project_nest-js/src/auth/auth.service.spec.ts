@@ -54,7 +54,7 @@ describe('Examen del AuthService', () => {
        * Maqueta del Usuario
        */
       const userLoginBody: LoginAuthDto = {
-        email: 'test@example.com',
+        email: 'test@test.com',
         password: 'password123',
       };
 
@@ -109,19 +109,19 @@ describe('Examen del AuthService', () => {
     it('should create a new user and emit user.created event', async () => {
 
       const userBody: RegisterAuthDto = {
-        email: 'newuser@example.com',
+        email: 'newuser@test.com',
         password: 'password123',
         name: 'John Doe',
       };
 
-      const newUser = { _id: 'mocked-id', email: 'newuser@example.com', password: 'hashed-password' };
+      const newUser = { _id: 'mocked-id', email: 'newuser@test.com', password: 'hashed-password' };
       userModelMock.create.mockResolvedValueOnce(newUser);
 
       const userRegister = await service.register(userBody);
 
       expect(clientMailServiceMock.emit).toHaveBeenCalledWith('user.created', newUser);
       expect(userRegister._id).toEqual('mocked-id');
-      expect(userRegister.email).toEqual('newuser@example.com');
+      expect(userRegister.email).toEqual('newuser@test.com');
       expect(userRegister.password).toEqual('hashed-password');
     });
   });
