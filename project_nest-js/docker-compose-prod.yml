@@ -1,19 +1,18 @@
 services:
   nest:
     container_name: nest_app
-    build: 
-      context: ./
+    image: alexcham23/nest-js:latest
     restart: always
     ports:
       - 5000:5000
     environment:
-      - DB_URI=mongodb://mongo/mydatabase
-      - JWT_SECRET=pruebajwt
-      - MAIL_SECURE=false
-      - MAIL_PORT=2525
-      - MAIL_FROM=info@test.com
-      - MAIL_USER=ec8857c0301af3
-      - MAIL_PASSWORD=de3172034c8c83
+      - DB_URI: ${DB_URI}
+      - JWT_SECRET: ${JWT_SECRET}
+      - MAIL_SECURE: ${MAIL_SECURE}
+      - MAIL_PORT: ${MAIL_PORT}
+      - MAIL_FROM: ${MAIL_FROM}
+      - MAIL_USER:  ${MAIL_USER}
+      - MAIL_PASSWORD: ${MAIL_PASSWORD}
 
     depends_on:
       - mongo

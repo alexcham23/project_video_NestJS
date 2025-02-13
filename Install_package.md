@@ -109,3 +109,13 @@ npm i --save @nestjs/microservices
 ```sh
 npm install -g pnpm
 ```
+## express para pnpm
+```sh
+RUN pnpm add @nestjs/platform-express express multer
+
+```
+
+## actualizar las nestjs  con pnpm
+```sh
+pnpm update -L
+```

@@ -1,34 +1,40 @@
-# Build Layer
-FROM node:23-alpine AS development
+FROM node:23-alpine AS base
+#Install pnpm package manager
+RUN npm i -g pnpm@latest
 
+# Install dependencies
+FROM base AS dependencies
+
+# Create app directory
 WORKDIR /app
+# copy package.json and pnpm-lock.yaml
+COPY package.json pnpm-lock.yaml ./
+# install dependencies
+RUN pnpm install
 
-COPY tsconfig*.json ./
-COPY package*.json ./
-COPY nest-cli*.json ./
-# INSTALA  LAS MISMAS LIBRERIAS  Y VERSION
-RUN npm ci
-
-COPY src/ src/
-
-RUN npm run build
-
-# Runtime (production) Layer
-FROM node:23-alpine AS production
-
+#create nueva imagen build
+FROM base AS build
+# Create app directory
 WORKDIR /app
+# copy source code
+COPY . .
+# copy node_modules from dependencies
+COPY --from=dependencies /app/node_modules ./node_modules
+# create build
+RUN pnpm build
+# eliminar dependencias de desarrollo
+RUN pnpm prune --prod
 
-# copy depndencias files
-COPY package*.json ./
+# Create final image for despliegue(deploy)
+FROM node:23-alpine AS deploy
+# Create app directory
+WORKDIR /app
+# copy node_modules from dependencies
+COPY --from=build /app/dist ./dist
+#COPY --from=build /app/tmp ./tmp
+COPY --from=build /app/public ./public
+COPY --from=build /app/node_modules ./node_modules
 
-# Install runtime dependecies (whitout dev/test dependencias)
-RUN npm ci --omit=dev
-
-# Copy production build
-COPY --from=development /app/dist ./dist
-
-# Expose application port
+# Expose the port the app runs in
 EXPOSE 5000
-
-# start application
-CMD [ "node","dist/main.js" ]
+CMD [ "node","dist/apps/project_nest-js/main.js"]
