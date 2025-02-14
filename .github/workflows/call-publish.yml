@@ -9,5 +9,5 @@ on:
       - master
 
 jobs:
-    call-publish:
-        uses: ./project_video_NestJS/.github/workflows/publish.yml@master 
+    call-publisher:
+        uses: alexcham23/project_video_NestJS/.github/workflows/publish.yml@master 
