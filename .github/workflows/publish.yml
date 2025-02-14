@@ -37,6 +37,7 @@ jobs:
       - name: Run Tests
         run: pnpm test
         working-directory: ./project_nest-js
+
   create-image-nest:
     needs: run-tests
     runs-on: ubuntu-latest
@@ -54,7 +55,7 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker build -t ghcr.io/alexcham23/nestjs-curso:latest projec_nest-js
+          docker build -t ghcr.io/alexcham23/nestjs-curso:latest ./projec_nest-js
           docker push ghcr.io/alexcham23/nestjs-curso:latest
 
   deploy-nest:
