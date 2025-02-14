@@ -5,4 +5,4 @@ on:
 
 jobs:
     call-publish:
-        uses: ./project_nest-js/.github/workflows/publish.yml 
+        uses: project_nest-js/.github/workflows/publish.yml 
