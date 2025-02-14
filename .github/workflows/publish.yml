@@ -36,7 +36,7 @@ jobs:
 
       - name: Run Tests
         run: pnpm test
-        working-directory: ./project_nest-js
+        working-directory: ./project_nest-js # esto se usa porque el comando se ejecuta en la raiz del proyecto y no en la carpeta del donde esta el codigo
 
   create-image-nest:
     needs: run-tests
@@ -55,8 +55,13 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker build -t ghcr.io/alexcham23/nestjs-curso:latest ./projec_nest-js
+          docker build -t ghcr.io/alexcham23/nestjs-curso:latest .
+        working-directory: ./project_nest-js
+
+      - name: Push the Docker image
+        run: |
           docker push ghcr.io/alexcham23/nestjs-curso:latest
+        
 
   deploy-nest:
     needs: create-image-nest
