@@ -83,31 +83,7 @@ jobs:
 
             echo "📌 Conectado al servidor. Comenzando despliegue..."
 
-            echo "🛑 Deteniendo contenedor anterior si existe..."
-            docker stop nestjs_api || true
-
-            echo "🧹 Eliminando imagen anterior..."
-            docker rmi -f nestjs_api || true
-
-            echo "🔑 Iniciando sesión en el registro de GitHub..."
-            docker login ghcr.io -u ${{ secrets.SSH_USER }} -p ${{ secrets.TOKEN_CD_CI }}
-
-            echo "📦 Descargando nueva imagen..."
-            docker pull ghcr.io/alexcham23/nestjs-curso:latest
-
-            echo "🚀 Levantando servicio con Docker "
-            docker run -d \
-              --name nestjs_api \
-              -p 5000:5000 \
-              --restart always \
-              -e JWT_SECRET='${{secrets.ENV_JWT_SECRET}}' \
-              -e DB_URI='${{secrets.ENV_DB_URI}}' \
-              -e MAIL_SECURE='${{secrets.ENV_MAIL_SECURE}}' \
-              -e MAIL_PORT='${{secrets.ENV_MAIL_PORT}}' \
-              -e MAIL_FROM='${{secrets.ENV_MAIL_FROM}}' \
-              -e MAIL_USER='${{secrets.ENV_MAIL_USER}}' \
-              -e MAIL_PASSWORD='${{secrets.ENV_MAIL_PASSWORD}}' \
-              ghcr.io/alexcham23/nestjs-curso:latest
+            
 
             echo "✅ Despliegue completado exitosamente."
           EOF
