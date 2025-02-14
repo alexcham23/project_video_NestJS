@@ -2,12 +2,12 @@ name: publish
 
 on:
   workflow_call:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+  #push:
+  #  branches:
+  #    - master
+  #pull_request:
+  #  branches:
+  #    - master
 
 jobs:
   run-tests:

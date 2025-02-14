@@ -10,4 +10,4 @@ on:
 
 jobs:
     call-publish:
-        uses: ./project_video_NestJS/project_nest-js/.github/workflows/publish.yml
+        uses: alexcham23/project_video_NestJS/.github/workflows/publish.yml@master 
