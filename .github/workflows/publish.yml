@@ -106,6 +106,7 @@ jobs:
               -e MAIL_FROM='${{secrets.ENV_MAIL_FROM}}' \
               -e MAIL_USER='${{secrets.ENV_MAIL_USER}}' \
               -e MAIL_PASSWORD='${{secrets.ENV_MAIL_PASSWORD}}' \
+              --network moonguito \
               ghcr.io/alexcham23/nestjs-curso:latest
             
 
