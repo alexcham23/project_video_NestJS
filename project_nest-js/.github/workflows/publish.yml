@@ -1,6 +1,7 @@
 name: publish
 
 on:
+  workflow_call:
   push:
     branches:
       - master
@@ -73,7 +74,7 @@ jobs:
       - name: SSH into Server and Deploy 🚀
         run: |
           sshpass -p ${{secrets.AUTH_PASS}} ssh -o StrictHostKeyChecking=no ${{secrets.AUTH_SERVER}} << EOF
-          
+
             echo "📌 Conectado al servidor. Comenzando despliegue..."
 
             echo "🛑 Deteniendo contenedor anterior si existe..."

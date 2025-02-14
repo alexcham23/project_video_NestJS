@@ -1,0 +1,8 @@
+name: Call Publish
+
+on: 
+    push:
+
+jobs:
+    call-publish:
+        uses: ./project_nest-js/.github/workflows/publish.yml 
