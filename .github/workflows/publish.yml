@@ -28,7 +28,7 @@ jobs:
           node-version: 20
           #cache: 'pnpm'
 
-      - run: corepack enable
+      - run: corepack disable
 
       - name: verify working directory
         run: echo "Working directory is ${{github.repository}}/project_nest-js/"
