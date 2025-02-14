@@ -86,7 +86,8 @@ jobs:
             docker stop nestjs_api || true
 
             echo "🧹 Eliminando imagen anterior..."
-            docker rmi -f nestjs_api || true
+            docker rm -f nestjs_api || true
+            docker rmi ghcr.io/alexcham23/nestjs-curso:latest || true
 
             echo "🔑 Iniciando sesión en el registro de GitHub..."
             docker login ghcr.io -u alexcham23 -p ${{ secrets.TOKEN_CD_CI }}
@@ -106,7 +107,7 @@ jobs:
               -e MAIL_FROM='${{secrets.ENV_MAIL_FROM}}' \
               -e MAIL_USER='${{secrets.ENV_MAIL_USER}}' \
               -e MAIL_PASSWORD='${{secrets.ENV_MAIL_PASSWORD}}' \
-              --network moonguito \
+              --network home_moonguito \
               ghcr.io/alexcham23/nestjs-curso:latest
             
 
