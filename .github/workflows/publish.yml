@@ -89,7 +89,7 @@ jobs:
             docker rmi -f nestjs_api || true
 
             echo "🔑 Iniciando sesión en el registro de GitHub..."
-            docker login ghcr.io -u ${{ secrets.SSH_USER }} -p ${{ secrets.TOKEN_CD_CI }}
+            docker login ghcr.io -u alexcham23 -p ${{ secrets.TOKEN_CD_CI }}
 
             echo "📦 Descargando nueva imagen..."
             docker pull ghcr.io/alexcham23/nestjs-curso:latest
