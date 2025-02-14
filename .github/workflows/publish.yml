@@ -32,12 +32,11 @@ jobs:
 
       - name: Install NPM Dependencies
         run: pnpm install --frozen-lockfile
-        working-directory: projec_nest-js
+        working-directory: project_video_NestJS/project_nest-js
 
       - name: Run Tests
         run: pnpm test
-        working-directory: projec_nest-js
-
+        working-directory: project_video_NestJS/project_nest-js
   create-image-nest:
     needs: run-tests
     runs-on: ubuntu-latest
